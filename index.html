@@ -22,7 +22,9 @@
             --colorTab: #555555;
 
             --blurPoster: 0px;
-            --posterImg: url('https://wallpapercat.com/w/full/9/e/1/798566-3840x2160-desktop-4k-abstract-shape-wallpaper.jpg')
+            --posterImg: url('https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+
+            --watermarkDisplay: block;
         }
 
         body {
@@ -40,6 +42,7 @@
         h1 {
             text-align: center;
         }
+
         .sublinetext {
             color: var(--colorSubText);
             transition-duration: 0.25s;
@@ -49,8 +52,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 56.25vw;
-            max-height: 100vh;
+            height: 100vh;
             border: none;
             display: flex;
             justify-self: center;
@@ -63,8 +65,7 @@
         #poster {
             position: relative;
             width: 100%;
-            height: 56.25vw;
-            max-height: 100vh;
+            height: 100vh;
             border: none;
             background-color: var(--colorPoster);
             display: flex;
@@ -72,6 +73,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            overflow-x: hidden;
             margin: 0;
             z-index: 1;
             transition-duration: 0.25s;
@@ -103,7 +105,7 @@
             overflow: hidden;
             box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
             transition-duration: 0.25s;
-            z-index: 2;
+            z-index: 3;
         }
         .playerInstance {
             position: absolute;
@@ -234,7 +236,7 @@
             margin-left: 10px;
             transition-duration: 0.25s;
         }
-        #urlBtn:hover, #searchBtn:hover, .hudBtn:hover, .settingBtn:hover, .btn:hover, .multiplayerBtn:hover, .multiplayerTopBtn:hover, .gameLauncherButton:hover, .seeMoreBtn:hover, .popUpBtn:hover, .actionsBtn:hover {
+        #urlBtn:hover, .launchBtn:hover, #searchBtn:hover, .hudBtn:hover, .settingBtn:hover, .btn:hover, .multiplayerBtn:hover, .multiplayerTopBtn:hover, .gameLauncherButton:hover, .seeMoreBtn:hover, .popUpBtn:hover, .actionsBtn:hover {
             background-color: var(--colorBtnHover);
             transition-duration: 0.25s;
         }
@@ -304,9 +306,23 @@
             flex-direction: column;
             transition-duration: 0.25s;
         }
-        .result, .placeholder {
+        .result {
             width: calc(25% - 35px);
             height: 100%;
+            margin: 10px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: var(--colorModule);
+            transition: transform 0.3s;
+            object-fit: fill;
+            display: block;
+            transition-duration: 0.25s;
+        }
+        .placeholder {
+            width: calc(25% - 35px);
+            height: auto;
+            aspect-ratio: 16 / 9;
             margin: 10px;
             position: relative;
             border-radius: 10px;
@@ -387,7 +403,7 @@
             background-color: var(--colorBody);
             margin: 15px;
             border-radius: 15px;
-            width: 95%;
+            width: 97%;
             justify-self: center;
             transition-duration: 0.25s;
         }
@@ -441,6 +457,7 @@
             z-index: 11;
             box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
             transition-duration: 0.25s;
+            animation: popup-anim 0.25s ease-in-out forwards;
         }
         .popUpB {
             position: fixed;
@@ -458,6 +475,7 @@
             z-index: 10;
             box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
             transition-duration: 0.25s;
+            animation: popup-anim 0.25s ease-in-out forwards;
         }
         .gameLauncherImage {
             width: 25vw;
@@ -477,7 +495,7 @@
             color: var(--colorText);
             border: none;
             cursor: pointer;
-            border-radius: 15px;
+            border-radius: 10px;
             margin-top: 10px;
             margin-left: 10px;
             margin-right: 10px;
@@ -538,6 +556,16 @@
             transition-duration: 0.25s;
             backdrop-filter: blur(20px);
         }
+        #fsGlass {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            transition-duration: 0.25s;
+            backdrop-filter: blur(20px);
+        }
         .popUpC {
             position: fixed;
             display: flex;
@@ -554,24 +582,35 @@
             z-index: 10;
             box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
             transition-duration: 0.25s;
+            animation: popup-anim 0.25s ease-in-out forwards;
         }
         .popUpD {
             position: fixed;
-            display: flex;
+            display: block;
             top: 50%;
-            left: 50%;
+            left: 75%;
             transform: translate(-50%, -50%);
-            width: fit-content;
+            width: 25%;
             height: fit-content;
+            max-height: 75%;
             background-color: var(--colorModule);
             border-radius: 20px;
-            overflow: visible;
+            padding-left: 20px;
+            padding-right: 20px;
+            overflow-y: auto;
+            overflow-anchor: none;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            z-index: 10;
+            z-index: 101;
             box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
             transition-duration: 0.25s;
+            animation: popup-anim 0.25s ease-in-out forwards;
+        }
+        .popUpD::-webkit-scrollbar {
+            display: none;
         }
         .popUpTitle {
             margin-top: 10px;
@@ -580,15 +619,340 @@
             margin-left: 15px;
             margin-right: 15px;
         }
+        #fsEffect {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 99;
+            background: linear-gradient(to bottom, var(--colorBody), var(--colorBtn));
+            display: none;
+            transition-duration: 0.25s;
+        }
+        .popUpE {
+            position: fixed;
+            display: flex;
+            top: 5vh;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: fit-content;
+            height: fit-content;
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: var(--colorModule);
+            border-radius: 20px;
+            overflow: visible;
+            opacity: 0;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
+            transition-duration: 0.25s;
+            animation: notification-anim 3s ease-in-out forwards;
+        }
+        .initSubText {
+            position: absolute;
+            color: var(--colorText);
+            bottom: 1vh;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: fadein 1s ease-in-out forwards;
+        }
+        .initStrongText {
+            position: absolute;
+            color: var(--colorText);
+            top: 40vh;
+            left: 50%;
+            white-space: nowrap;
+            transform: translate(-50%, -50%);
+            animation: fadein-strong 1s ease-in-out forwards;
+            font-size: 7vh;
+        }
+        .initStrongSubText {
+            position: absolute;
+            color: var(--colorText);
+            top: 50vh;
+            left: 50%;
+            white-space: nowrap;
+            transform: translate(-50%, -50%);
+            animation: fadein-strong-sub 1s ease-in-out forwards;
+            font-size: 5vh;
+        }
+        .launchbar {
+            position: absolute;
+            display: flex;
+            justify-content: space-around;
+            width: fit-content;
+            bottom: 1vh;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-bottom: 15px;
+            background-color: var(--colorBody);
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 15px;
+            transform: translate(-50%, -50%);
+            transition-duration: 0.25s;
+            animation: fadein 0.5s ease-in-out forwards;
+        }
+        .launchbarB {
+            position: fixed;
+            display: flex;
+            justify-content: space-around;
+            width: fit-content;
+            bottom: 1vh;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-bottom: 15px;
+            background-color: var(--colorBody);
+            z-index: 101;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 15px;
+            transform: translate(-50%, -50%);
+            transition-duration: 0.25s;
+            animation: fadein 0.5s ease-in-out forwards;
+        }
+        .launchBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: var(--colorBtn);
+            color: var(--colorText);
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition-duration: 0.25s;
+        }
+        #transitionIcon {
+            position: absolute;
+            opacity: 0;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 50%;
+        }
+        .popUpF {
+            position: fixed;
+            display: block;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            width: 25%;
+            height: fit-content;
+            max-height: 75%;
+            background-color: var(--colorModule);
+            border-radius: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            overflow-y: auto;
+            overflow-anchor: none;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 101;
+            box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
+            transition-duration: 0.25s;
+            animation: popup-anim 0.25s ease-in-out forwards;
+        }
+        .popUpF::-webkit-scrollbar {
+            display: none;
+        }
+        .launcher-fsEffect {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            background: linear-gradient(to bottom, var(--colorBody), var(--colorBtn));
+            display: block;
+            transition-duration: 0.25s;
+            animation: launcherBgTransition 0.25s ease-in-out forwards;
+        }
+        .watermark {
+            position: absolute;
+            width: 10%;
+            height: 10%;
+            display: var(--watermarkDisplay);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        .watermarkText {
+            position: absolute;
+            font-size: 3vh;
+            top: 55%;
+            left: 50%;
+            display: var(--watermarkDisplay);
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+        }
+        #zFocus {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            background-color: white;
+            display: none;
+            transition-duration: 0.25s;
+        }
+        .focusText {
+            color: black;
+            text-align: left;
+        }
+
+        .fadeOut {
+            animation: fadeout 0.5s ease-in-out forwards;
+        }
+        .fadeOut-fast {
+            animation: fadeout 0.25s ease-in-out forwards;
+        }
+        .transition {
+            animation: transition-anim 1s ease-in-out forwards;
+        }
+        @keyframes notification-anim {
+            0% {
+                top: -5vh;
+                opacity: 0;
+            }
+            10% {
+                top: 5vh;
+                opacity: 1;
+            }
+            90% {
+                top: 5vh;
+                opacity: 1;
+            }
+            100% {
+                top: -5vh;
+                opacity: 0;
+            }
+        }
+        @keyframes popup-anim {
+            0% {
+                top: 100%;
+                opacity: 0;
+            }
+            100% {
+                top: 50%;
+                opacity: 1;
+            }
+        }
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeout {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        @keyframes fadein-strong {
+            0% {
+                font-size: 10vh;
+                opacity: 0;
+            }
+            100% {
+                font-size: 7vh;
+                opacity: 1;
+            }
+        }
+        @keyframes fadein-strong-sub {
+            0% {
+                font-size: 7vh;
+                opacity: 0;
+            }
+            100% {
+                font-size: 5vh;
+                opacity: 1;
+            }
+        }
+        @keyframes transition-anim {
+            0% {
+                opacity: 0;
+                width: 150vw;
+                height: 150vh;
+                transform: translate(-50%, -50%) rotate(-20deg);
+            }
+            47.5% {
+                opacity: 0.75;
+                width: 20vw;
+                height: 20vh;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            52.5% {
+                opacity: 0.75;
+                width: 20vw;
+                height: 20vh;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                width: 150vw;
+                height: 150vh;
+                transform: translate(-50%, -50%) rotate(20deg);
+            }
+        }
+        @keyframes launcherBgTransition {
+            0% {
+                opacity: 0;
+                width: 110%;
+                height: 110%;
+            }
+            100% {
+                opacity: 1;
+                width: 100%;
+                height: 100%;
+            }
+        }
 
     </style>
 </head>
 <body>
+    <div id="zFocus">
+        <h1 class="focusText">Error 403: Forbidden</h1>
+        <p class="focusText">The server could not verify your request. If the problem persists, please wait a moment, then restart your web browser.</p>
+    </div>
+    <div id="fsEffect">
+        <svg id="transitionIcon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 168.595 168.595" xml:space="preserve">
+            <!-- Circle around the polygon -->
+            <circle cx="84.2975" cy="84.2975" r="75" stroke="white" stroke-width="7" fill="none" />
+            <!-- Flipped polygon with rounded outlines -->
+            <polygon points="84.2975,168.595 84.2975,102.2605 138.178,102.2605 84.2975,0 84.2975,66.3345 30.417,66.3345"
+                     stroke="white" stroke-width="10" fill="none" stroke-linejoin="round" />
+        </svg>
+    </div>
+    <div id="fsGlass"></div>
     <div id="glass"></div>
     <div id="poster"></div>
     <div id="playerDiv">
         <iframe id="videoPlayer" src="about:blank" allowfullscreen="true" loading="lazy" scrolling="no" allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated; web-share"></iframe>
     </div>
+    <svg class="watermark" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 168.595 168.595" xml:space="preserve">
+        <!-- Circle around the polygon -->
+        <circle cx="84.2975" cy="84.2975" r="75" stroke="white" stroke-width="7" fill="none" />
+        <!-- Flipped polygon with rounded outlines -->
+        <polygon points="84.2975,168.595 84.2975,102.2605 138.178,102.2605 84.2975,0 84.2975,66.3345 30.417,66.3345"
+                 stroke="white" stroke-width="10" fill="none" stroke-linejoin="round" />
+    </svg>
+    <p class="watermarkText"><strong>Nothing is Playing Right Now</strong></p>
     <div id="container">
         <div id="hudbar">
             <select class="hudInputZone" name="selInst" id="instTab" onchange="switchInstance()">
@@ -610,7 +974,12 @@
                 <button id="urlBtn">URL</button>
                 <button id="searchBtn">Search</button>
             </div>
-            <div id="results"></div>
+            <div id="results">
+                <div class="placeholder"></div>
+                <div class="placeholder"></div>
+                <div class="placeholder"></div>
+                <div class="placeholder"></div>
+            </div>
             <button id="seeMoreBtn">See More</button>
         </div>
         <div id="trendingTab">
@@ -638,15 +1007,19 @@
                     <h2 class="settingText">Theme</h2>
                     <select name="themeOption" id="themeOption" class="settingInputZone">
                         <option value="classic">Classic</option>
-                        <option value="midnight">Midnight</option>
-                        <option value="forest">Forest</option>
-                        <option value="volcanic">Volcanic</option>
-                        <option value="sunshine">Sunshine</option>
-                        <option value="galactic">Galactic</option>
-                        <option value="ultramarine">Ultramarine</option>
-                        <option value="blossom">Blossom</option>
-                        <option value="forgotten">Forgotten</option>
                         <option value="random">???</option>
+                        <option value="volcanic">Volcanic - Abyss Collection</option>
+                        <option value="laser">Laser - Tomorrow Collection</option>
+                        <option value="sunshine">Sunshine - Abyss Collection</option>
+                        <option value="glimmer">Glimmer - Tomorrow Collection</option>
+                        <option value="forest">Forest - Abyss Collection</option>
+                        <option value="toxic">Toxic - Tomorrow Collection</option>
+                        <option value="ultramarine">Sunken - Abyss Collection</option>
+                        <option value="midnight">Midnight - Abyss Collection</option>
+                        <option value="pacific">Pacific - Tomorrow Collection</option>
+                        <option value="galactic">Galactic - Abyss Collection</option>
+                        <option value="blossom">Blossom - Abyss Collection</option>
+                        <option value="forgotten">Forgotten - Abyss Collection</option>
                     </select>
                     <button class="settingBtn" onclick="updateTheme()">Apply</button>
                 </div>
@@ -686,18 +1059,7 @@
                     <button class="settingBtn" onclick="updateSafeSearch()">Apply</button>
                 </div>
             </div>
-            <h1>Player Settings</h1>
-            <div class="settingList">
-                <div class="settingModule">
-                    <h2 class="settingText">Loading Priority</h2>
-                    <select name="loadOption" id="loadOption" class="settingInputZone">
-                        <option value="lazy">Lazy</option>
-                        <option value="eager">Expedited</option>
-                    </select>
-                    <button class="settingBtn" onclick="updateLoadingPriority()">Apply</button>
-                </div>
-            </div>
-            <h1>Games Settings</h1>
+            <h1>Site Settings</h1>
             <div class="settingList">
                 <div class="settingModule">
                     <h2 class="settingText">Archived Games</h2>
@@ -706,6 +1068,22 @@
                         <option value="block">Show Archived Games</option>
                     </select>
                     <button class="settingBtn" onclick="updateArchivedGames()">Apply</button>
+                </div>
+                <div class="settingModule">
+                    <h2 class="settingText">Overflow in Custom Media</h2>
+                    <select name="customScrollOption" id="customScrollOption" class="settingInputZone">
+                        <option value="no">Hide Overflow When Loading Custom Media</option>
+                        <option value="yes">Allow Overflow When Loading Custom Media</option>
+                    </select>
+                    <button class="settingBtn" onclick="updateCustomScroll()">Apply</button>
+                </div>
+                <div class="settingModule">
+                    <h2 class="settingText">Null Media Indicator</h2>
+                    <select name="watermarkOption" id="watermarkOption" class="settingInputZone">
+                        <option value="block">Enabled</option>
+                        <option value="none">Disabled</option>
+                    </select>
+                    <button class="settingBtn" onclick="updateWatermark()">Apply</button>
                 </div>
             </div>
             <h1>Debug Options</h1>
@@ -822,12 +1200,10 @@
                     <div class="success">This application should run properly</div>
                     <div class="highlight">☆ FAN FAVORITE ☆</div>
                 </div>
-                
-                <div class="result yellowGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzE1NDg0MzI5LnBuZw==/315x250%23c/IWSW2X.png" alt="Dungeon Deck" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/12135961/index.html', 'https:\/img.itch.zone/aW1nLzE1NDg0MzI5LnBuZw==/315x250%23c/IWSW2X.png', false)">
                     <div class="title">Dungeon Deck</div>
                     <div class="success">This application should run properly</div>
-                    <div class="highlight">☆ FAN FAVORITE ☆</div>
                 </div>
                 <div class="result">
                     <img src="https://img.itch.zone/aW1nLzEwNzQxNjU2LmdpZg==/315x250%23cm/fqS36S.gif" alt="Steptile" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/6979397/index.html?v=1732313673', 'https:/\/img.itch.zone/aW1nLzEwNzQxNjU2LmdpZg==/315x250%23cm/fqS36S.gif', ['auto', '768px', '1 / 1'])">
@@ -870,11 +1246,6 @@
                     <div class="success">This application should run properly</div> 
                 </div>
                 <div class="result">
-                    <img src="https://img.itch.zone/aW1nLzE5ODg5ODM2LmdpZg==/315x250%23cm/8oJW1M.gif" alt="Monster Bonds" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/12828789/index.html', 'https:/\/img.itch.zone/aW1nLzE5ODg5ODM2LmdpZg==/315x250%23cm/8oJW1M.gif', ['auto', '576px', '4 / 3'])">
-                    <div class="title">Monster Bonds</div>
-                    <div class="success">This application should run properly</div>
-                </div>
-                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzYyNDc1NzEuZ2lm/315x250%23cm/kD%2BNVI.gif" alt="Onward Blocks" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/4004957/index.html', 'https:/\/img.itch.zone/aW1nLzYyNDc1NzEuZ2lm/315x250%23cm/kD%2BNVI.gif', ['auto', '576px', '4 / 3'])">
                     <div class="title">Onward Blocks</div>
                     <div class="success">This application should run properly</div>
@@ -884,11 +1255,6 @@
                     <div class="title">Mobility!</div>
                     <div class="success">This application should run properly</div>
                     <div class="highlight">☆ FAN FAVORITE ☆</div>
-                </div>
-                <div class="result">
-                    <img src="https://img.itch.zone/aW1nLzE2MzA4MzY4LmdpZg==/315x250%23cm/qPesxf.gif" alt="Aglobo" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/10521700/index.html?v=1732313573', 'https:/\/img.itch.zone/aW1nLzE2MzA4MzY4LmdpZg==/315x250%23cm/qPesxf.gif', ['auto', '576px', '4 / 3'])">
-                    <div class="title">AGLOBO</div>
-                    <div class="success">This application should run properly</div>
                 </div>
                 <div class="result">
                     <img src="https://img.itch.zone/aW1nLzk1NjU4ODYucG5n/315x250%23c/%2Ff65br.png" alt="Casino Roll" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/6301658/CasinoRollNewgrounds/index.html', 'https:/\/img.itch.zone/aW1nLzk1NjU4ODYucG5n/315x250%23c/%2Ff65br.png', false)">
@@ -930,59 +1296,89 @@
                     <div class="title">Globeba</div>
                     <div class="success">This application should run properly</div>
                 </div>
-                <div class="result">
+                <div class="result yellowGlow">
                     <img src="https://img.itch.zone/aW1nLzYzNDkzNjMuZ2lm/315x250%23cm/SM5Z%2FQ.gif" alt="Cog Owl" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/4068247/index.html', 'https:/\/img.itch.zone/aW1nLzYzNDkzNjMuZ2lm/315x250%23cm/SM5Z%2FQ.gif', ['480px', 'auto', '1 / 1'])">
                     <div class="title">Cog Owl</div>
                     <div class="success">This application should run properly</div>
+                    <div class="highlight">☆ FAN FAVORITE ☆</div>
                 </div>
-                <div class="result greenGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzE1MTQ3NjE2LnBuZw==/315x250%23c/5CTyNW.png" alt="Necrochess" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/10815431/index.html?v=1732313564', 'https:/\/img.itch.zone/aW1nLzE1MTQ3NjE2LnBuZw==/315x250%23c/5CTyNW.png', ['1024px', '768px', ''])">
                     <div class="title">Necrochess</div>
                     <div class="success">This application should run properly</div>
-                    <div class="success">✦ NEW ADDITION ✦</div>
                 </div>
-                <div class="result greenGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzY5Mjc1ODgucG5n/315x250%23c/beLR21.png" alt="Dead Estate" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/2913007/index.html?v=1732313799', 'https:/\/img.itch.zone/aW1nLzY5Mjc1ODgucG5n/315x250%23c/beLR21.png', false)">
                     <div class="title">Dead Estate</div>
-                    <div class="success">This application should run properly</div>
-                    <div class="success">✦ NEW ADDITION ✦</div>
+                    <div class="soft-warning">! There may be performance issues when running this application !</div>
                 </div>
-                <div class="result greenGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzM4MzI0OTUucG5n/315x250%23c/%2FqNChk.png" alt="Tricky Keys" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/3372540/index.html?v=1732313786', 'https:/\/img.itch.zone/aW1nLzM4MzI0OTUucG5n/315x250%23c/%2FqNChk.png', ['960px', '640px', ''])">
                     <div class="title">Tricky Keys</div>
                     <div class="success">This application should run properly</div>
-                    <div class="success">✦ NEW ADDITION ✦</div>
                 </div>
-                <div class="result greenGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzIwNjAxNjU0LnBuZw==/315x250%23c/N0AutF.png" alt="Debts in the Depths" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/13302223/index.html', 'https:/\/img.itch.zone/aW1nLzIwNjAxNjU0LnBuZw==/315x250%23c/N0AutF.png', false)">
                     <div class="title">Debts in the Depths</div>
                     <div class="success">This application should run properly</div>
-                    <div class="success">✦ NEW ADDITION ✦</div>
                 </div>
-                <div class="result greenGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzExODcyNDM4LnBuZw==/315x250%23c/WFRYSN.png" alt="Green New Deal Simulator" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/10052011/index.html?v=1732313584', 'https:/\/img.itch.zone/aW1nLzExODcyNDM4LnBuZw==/315x250%23c/WFRYSN.png', false)">
                     <div class="title">Green New Deal Simulator</div>
                     <div class="success">This application should run properly</div>
-                    <div class="success">✦ NEW ADDITION ✦</div>
                 </div>
-                <div class="result greenGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzEwMTMxMzQyLnBuZw==/315x250%23c/Xw2NzY.png" alt="Chibilization" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/6635868/Chibilization%20BUILD%2018%20[WEB]/index.html?v=1732313685', 'https:/\/img.itch.zone/aW1nLzEwMTMxMzQyLnBuZw==/315x250%23c/Xw2NzY.png', false)">
                     <div class="title">Chibilization</div>
                     <div class="success">This application should run properly</div>
-                    <div class="success">✦ NEW ADDITION ✦</div>
                 </div>
-                <div class="result greenGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzgwMjI1OTUuZ2lm/315x250%23cm/0bdimr.gif" alt="PlaneTwo" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/6377119/index.html?v=1732313694', 'https:/\/img.itch.zone/aW1nLzgwMjI1OTUuZ2lm/315x250%23cm/0bdimr.gif', ['576px', 'auto', '1 / 1'])">
                     <div class="title">PlaneTwo</div>
                     <div class="success">This application should run properly</div>
-                    <div class="success">✦ NEW ADDITION ✦</div>
                 </div>
-                <div class="result greenGlow">
+                <div class="result">
                     <img src="https://img.itch.zone/aW1nLzc2NTEwNDcuZ2lm/315x250%23cm/KQD9I6.gif" alt="H A D" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/4922979/index.html?v=1732313737', 'https:/\/img.itch.zone/aW1nLzc2NTEwNDcuZ2lm/315x250%23cm/KQD9I6.gif', ['576px', 'auto', '1 / 1'])">
                     <div class="title">H A D</div>
                     <div class="success">This application should run properly</div>
+                </div>
+                <div class="result greenGlow">
+                    <img src="https://img.itch.zone/aW1nLzE4MDIwODUucG5n/315x250%23c/NT7ou3.png" alt="ADOFAI" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/1175401/index.html?v=1574336293', 'https:/\/img.itch.zone/aW1nLzE4MDIwODUucG5n/315x250%23c/NT7ou3.png', ['800px', '400px', ''])">
+                    <div class="title">A Dance of Fire and Ice</div>
+                    <div class="success">This application should run properly</div>
                     <div class="success">✦ NEW ADDITION ✦</div>
                 </div>
+                <div class="result greenGlow">
+                    <img src="https://img.itch.zone/aW1nLzEwNDk5NDI0LmdpZg==/315x250%23cm/uz6o1Z.gif" alt="Planetaario" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/6818134/index.html', 'https:/\/img.itch.zone/aW1nLzEwNDk5NDI0LmdpZg==/315x250%23cm/uz6o1Z.gif', ['960px', '720px', ''])">
+                    <div class="title">Planetaario</div>
+                    <div class="success">This application should run properly</div>
+                    <div class="success">✦ NEW ADDITION ✦</div>
+                </div>
+                <div class="result greenGlow">
+                    <img src="https://img.itch.zone/aW1nLzExMzMzODE0LnBuZw==/315x250%23c/tnp7Ny.png" alt="Tricky Keys 2" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/6341860/index.html?v=1732313695', 'https:/\/img.itch.zone/aW1nLzExMzMzODE0LnBuZw==/315x250%23c/tnp7Ny.png', ['800px', '600px', ''])">
+                    <div class="title">Tricky Keys 2</div>
+                    <div class="success">This application should run properly</div>
+                    <div class="success">✦ NEW ADDITION ✦</div>
+                </div>
+                <div class="result greenGlow">
+                    <img src="https://img.itch.zone/aW1nLzIwNzIzODg3LnBuZw==/315x250%23c/3qaVL0.png" alt="Midnight Mansion" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/13399845/index.html', 'https:/\/img.itch.zone/aW1nLzIwNzIzODg3LnBuZw==/315x250%23c/3qaVL0.png', false)">
+                    <div class="title">Midnight Mansion</div>
+                    <div class="success">This application should run properly</div>
+                    <div class="success">✦ NEW ADDITION ✦</div>
+                </div>
+                <div class="result greenGlow">
+                    <img src="https://img.itch.zone/aW1nLzc0NjMyMjUucG5n/315x250%23c/2w2adh.png" alt="Kobold Siege" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/4794439/KoboldSiegev21/index.html?v=1732313740', 'https:/\/img.itch.zone/aW1nLzc0NjMyMjUucG5n/315x250%23c/2w2adh.png', ['1024px', '768px', ''])">
+                    <div class="title">Kobold Siege</div>
+                    <div class="success">This application should run properly</div>
+                    <div class="success">✦ NEW ADDITION ✦</div>
+                </div>
+                <div class="result greenGlow">
+                    <img src="https://img.itch.zone/aW1nLzY5NzM3NDcuZ2lm/315x250%23cm/a2n77G.gif" alt="Epolevne" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/4446187/index.html?v=1732313750', 'https:/\/img.itch.zone/aW1nLzY5NzM3NDcuZ2lm/315x250%23cm/a2n77G.gif', ['576px', 'auto', '1 / 1'])">
+                    <div class="title">Epolevne</div>
+                    <div class="success">This application should run properly</div>
+                    <div class="success">✦ NEW ADDITION ✦</div>
+                </div>
+                
 
                 <div class="result redGlow archived">
                     <img src="https://img.itch.zone/aW1nLzYyNDc1NzEuZ2lm/315x250%23cm/kD%2BNVI.gif" alt="Reclamation" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/5172644/index.html', 'https:/\/img.itch.zone/aW1nLzYyNDc1NzEuZ2lm/315x250%23cm/kD%2BNVI.gif', false)">
@@ -1003,6 +1399,18 @@
                     <img src="https://img.itch.zone/aW1nLzExNDAzMzQzLnBuZw==/315x250%23c/yHS3wM.png" alt="Tumble Tundra" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/7413016/index.html?v=1732313664', 'https:/\/img.itch.zone/aW1nLzExNDAzMzQzLnBuZw==/315x250%23c/yHS3wM.png', false)">
                     <div class="title">Tumble Tundra</div>
                     <div class="soft-warning">! There may be performance issues when running this application !</div>
+                    <div class="warning">⚠ Archived Game ⚠</div>
+                </div>
+                <div class="result redGlow archived">
+                    <img src="https://img.itch.zone/aW1nLzE5ODg5ODM2LmdpZg==/315x250%23cm/8oJW1M.gif" alt="Monster Bonds" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/12828789/index.html', 'https:/\/img.itch.zone/aW1nLzE5ODg5ODM2LmdpZg==/315x250%23cm/8oJW1M.gif', ['auto', '576px', '4 / 3'])">
+                    <div class="title">Monster Bonds</div>
+                    <div class="success">This application should run properly</div>
+                    <div class="warning">⚠ Archived Game ⚠</div>
+                </div>
+                <div class="result redGlow archived">
+                    <img src="https://img.itch.zone/aW1nLzE2MzA4MzY4LmdpZg==/315x250%23cm/qPesxf.gif" alt="Aglobo" onclick="launchGame('https\:\/\/html-classic.itch.zone/html/10521700/index.html?v=1732313573', 'https:/\/img.itch.zone/aW1nLzE2MzA4MzY4LmdpZg==/315x250%23cm/qPesxf.gif', ['auto', '576px', '4 / 3'])">
+                    <div class="title">AGLOBO</div>
+                    <div class="success">This application should run properly</div>
                     <div class="warning">⚠ Archived Game ⚠</div>
                 </div>
             </div>
@@ -1029,7 +1437,7 @@
             <hr class="divider">
             <h1>More Options Coming Soon...</h1>
         </div>
-        <p id="subline">Bolt Media Player | v: b-r1.0.0 (25m4d8) - Integrated Instances | Private Alpha DevBuild</p>
+        <p id="subline">Bolt Media Player | v: b-r1.1.0 - Immersive Interface | Private Distribution Copy</p>
     </div>
 
     <script>
@@ -1049,12 +1457,10 @@
         let syndicate = 'true';
         let ssVal = 'moderate';
         let bootLocation = 'main';
+        let cts = 'no';
+        let watermark = 'block';
 
-        changelog(
-            "Integrated Instances",
-            "b-r1.0.0",
-            "• New \"Instances\" System - Play multiple pieces of media in atab-like interface!<br>• Player Actions Menu Revamped → Instance Options<br>1. Fullscreen the Selected Instance<br>2. Rename the Selected Instance<br>3. Clone the Source of the Selected Instance to a New Instance<br>4. Restore Recently Unloaded Instances<br>5. Unload any Instance<br>• New \"Game Key\" System<br>• Slightly Modified Changelog UI<br>• Added 3 New Themes<br>• Added 8 New Games<br>• Removed Certain Redundant Settings"
-        );
+        initialize();
 
         document.getElementById('urlBtn').addEventListener('click', function() {
             var input = document.getElementById('input').value;
@@ -1137,6 +1543,102 @@
             document.getElementById('multiTab').style.display = 'none';
             document.getElementById('customTab').style.display = 'flex';
         });
+
+        function initialize() {
+            document.getElementById("fsEffect").style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            const loadingText = document.createElement('p');
+            loadingText.classList.add('initStrongText')
+            loadingText.innerHTML = '<strong>We\'re getting everything set up for you...</strong>'
+
+            const loadDescText = document.createElement('p');
+            loadDescText.classList.add('initSubText')
+            loadDescText.innerHTML = '<strong>Initializing...</strong>'
+
+
+            const titleText = document.createElement('p');
+            titleText.classList.add('initStrongText')
+            titleText.innerHTML = '<strong>Bolt Media Player</strong>'
+
+            const subtitleText = document.createElement('p');
+            subtitleText.classList.add('initStrongSubText')
+            subtitleText.innerHTML = '<strong>Immersive Interfaces (b-r1.1.0)</strong>'
+
+            const launchBar = document.createElement('div');
+            launchBar.classList.add('launchbar');
+
+            const launchBtn = document.createElement('button');
+            launchBtn.classList.add('launchBtn');
+            launchBtn.innerHTML = "Launch";
+            launchBtn.addEventListener('click', function() {
+                titleText.classList.add('fadeOut');
+                subtitleText.classList.add('fadeOut');
+                launchBar.classList.add('fadeOut');
+
+                setTimeout(() => {
+                    titleText.remove();
+                    subtitleText.remove();
+                    launchBar.remove();
+
+                    document.getElementById("transitionIcon").style.display = 'block';
+                    document.getElementById("transitionIcon").classList.add("transition");
+                }, 250);
+                setTimeout(() => {
+                    document.getElementById("fsEffect").classList.add("fadeOut");
+                }, 1000);
+                setTimeout(() => {
+                    document.getElementById("fsEffect").style.display = 'none';
+                    document.getElementById("transitionIcon").style.display = 'none';
+                    document.body.style.overflow = 'visible';
+                    initBase();
+                }, 1500);
+            })
+
+            const changelogBtn = document.createElement('button');
+            changelogBtn.classList.add('launchBtn');
+            changelogBtn.innerHTML = "?"
+            changelogBtn.addEventListener('click', function() {
+                info(
+                    "Immersive Interface",
+                    "b-r1.1.0",
+                    "• Completely Overhauled UI/UX<br>• Added Intro/Loading Sequence<br>• Added an Indicator for when Nothing is Playing<br>• Tweaked the Changelog UI<br>• Added new \"zFocus\" Feature - A Failsafe that Automatically Engages when the Website is no Longer in Focus<br>• Added a Feature Overview<br>• Added Additional Animations<br>• Added a Setting to Control Scrolling when Loading Custom Media<br>• Added a Setting to Toggle the Null Indicator<br>• Videos Now have a Confirmation UI<br>• Added a Confirmation when Closing or Reloading the Website<br>• Labeled and Reorganized Theme Selection<br>• Added 6 New Games<br>• Added 4 New Themes<br>• Fixed Various Issues"
+                );
+            })
+
+            fsEffect.appendChild(loadingText);
+            fsEffect.appendChild(loadDescText);
+
+            setTimeout(() => {
+                loadDescText.innerHTML = '<strong>Waiting on Frame Catch Up...</strong>'
+                setTimeout(() => {
+                    loadDescText.innerHTML = '<strong>Finished!</strong>'
+                    setTimeout(() => {
+                        loadingText.classList.add('fadeOut');
+                        loadDescText.classList.add('fadeOut');
+                    }, 1000);
+                    setTimeout(() => {
+                        loadingText.remove();
+                        loadDescText.remove();
+                        fsEffect.appendChild(titleText);
+                        fsEffect.appendChild(subtitleText);
+                        launchBar.appendChild(launchBtn);
+                        launchBar.appendChild(changelogBtn);
+                        fsEffect.appendChild(launchBar);
+                    }, 1500);
+                }, Math.floor(Math.random() * (2500 - 500 + 1)) + 500);
+            }, Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000);
+        }
+
+        function initBase() {
+            window.onbeforeunload = function (event) {
+                event.preventDefault();
+                event.returnValue = '';
+                return 'Are you certain you wish to close Bolt?';
+            };
+
+            notify("Scroll Down to Start Playing Media!");
+        }
         
         function validateKey() {
             const keyField = document.getElementById("gameKeyInput");
@@ -1170,6 +1672,21 @@
             
             playMediaMinimized(keys.find(item => item.id === key)?.src, keys.find(item => item.id === key)?.dim);
         }
+        function zFocus() {
+            const focus = document.getElementById("zFocus");
+            document.body.style.overflow = 'hidden';
+
+            focus.style.display = "block";
+            document.addEventListener("keydown", handle);
+        }
+        function handle(event) {
+            if (event.key == "z" || event.key == "Enter") {
+                const focus = document.getElementById("zFocus");
+                focus.style.display = "none";
+                document.body.style.overflow = 'auto';
+                document.removeEventListener("keydown", handle);
+            }
+        }
 
         function popUp(title, desc) {
             const glass = document.getElementById('glass');
@@ -1200,40 +1717,75 @@
             document.body.appendChild(popUpDiv);
         }
 
-        function changelog(title, version, desc) {
-            const glass = document.getElementById('glass');
+        function notify(text) {
+            const popUpDiv = document.createElement('div');
+            popUpDiv.className = 'popUpE';
+
+            const descElement = document.createElement('p');
+            descElement.innerHTML = text;
+
+            popUpDiv.appendChild(descElement);
+            document.body.appendChild(popUpDiv);
+
+            setTimeout(() => {
+                popUpDiv.parentNode.removeChild(popUpDiv);
+            }, 3000)
+        }
+
+        function info(title, version, desc) {
+            const glass = document.getElementById('fsGlass');
             glass.style.display = 'flex';
             document.body.style.overflow = 'hidden';
 
-            const popUpDiv = document.createElement('div');
-            popUpDiv.className = 'popUpD';
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'popUpF';
+
+            const boltTitle = document.createElement('h1');
+            boltTitle.innerHTML = `Bolt Media Player`;
+            boltTitle.className = "popUpTitle";
+
+            const boltInfo = document.createElement('p');
+            boltInfo.innerHTML = "• Browse YouTube's Video Library and Play Videos on the Dedicated Media Player<br>• See what's Trending on YouTube in Real-Time<br>• Play from a Variety of 50+ Hand-Picked Games at any Time<br>• Client-Sided Data and Security, Play in Complete Privacy<br>• Automatic Secret-Protecting Failsafes with \"zFocus\"<br>• Play Videos, Games, and More all at once with Bolt Instances<br>• Fullscreen, Rename, and Clone any Media at any time with the Player Actions Menu<br>• Restore Recently Unloaded Media with Infinite History<br>• Customize your Wallpaper & Themes at any Time<br>• Play your own Media in the Media Player<br>• Immersive Animations to Keep you Engaged";
+            boltInfo.className = "popUpText";
+
+            const changelogDiv = document.createElement('div');
+            changelogDiv.className = 'popUpD';
 
             const titleElement = document.createElement('h1');
-            titleElement.innerHTML = `${title} - ${version}`;
+            titleElement.innerHTML = `${title}<br><em>${version}</em>`;
             titleElement.className = "popUpTitle";
 
             const descElement = document.createElement('p');
             descElement.innerHTML = desc;
             descElement.className = "popUpText";
 
+            const launchBar = document.createElement('div');
+            launchBar.classList.add('launchbarB');
+
             const button1 = document.createElement('button');
-            button1.className = 'popUpBtn';
-            button1.textContent = 'Close';
+            let txt = Math.random() <= 0.995 ? "Close" : "Ok Boomer";
+            button1.className = 'launchBtn';
+            button1.textContent = txt;
             button1.addEventListener('click', function() {
                 glass.style.display = 'none';
-                popUpDiv.parentNode.removeChild(popUpDiv);
                 document.body.style.overflow = 'visible';
+
+                changelogDiv.remove();
+                infoDiv.remove();
+                launchBar.remove();
             });
 
-            popUpDiv.appendChild(titleElement);
-            popUpDiv.appendChild(descElement);
-            popUpDiv.appendChild(button1);
-            document.body.appendChild(popUpDiv);
+            infoDiv.appendChild(boltTitle);
+            infoDiv.appendChild(boltInfo);
+            changelogDiv.appendChild(titleElement);
+            changelogDiv.appendChild(descElement);
+            launchBar.appendChild(button1);
+            document.body.appendChild(infoDiv);
+            document.body.appendChild(changelogDiv);
+            document.body.appendChild(launchBar);
         }
 
         function launchGame(url, img, mini) {
-            const glass = document.getElementById('glass');
-            glass.style.display = 'flex';
             document.body.style.overflow = 'hidden';
 
             const popUpDiv = document.createElement('div');
@@ -1243,6 +1795,9 @@
             imgElement.className = 'gameLauncherImage';
             imgElement.src = img;
 
+            const bg = document.createElement("div");
+            bg.className = 'launcher-fsEffect';
+
             const buttonsDiv = document.createElement('div');
             buttonsDiv.className = 'gameLauncherButtons';
 
@@ -1250,20 +1805,94 @@
             button1.className = 'gameLauncherButton';
             button1.textContent = 'Launch';
             button1.addEventListener('click', function() {
-                if (mini != false) {
-                    playMediaMinimized(url, mini);
-                } else {
+                if (mini == false) {
                     playMedia(url);
+                } else {
+                    playMediaMinimized(url, mini);
                 }
-                glass.style.display = 'none';
-                popUpDiv.parentNode.removeChild(popUpDiv);
-                document.body.style.overflow = 'visible';
+
+                popUpDiv.classList.add('fadeOut-fast');
+                bg.classList.add('fadeOut-fast');
+
+                setTimeout(() => {
+                    popUpDiv.remove();
+                    bg.remove();
+                    document.body.style.overflow = 'visible';
+                }, 250)
+            });
+
+            const button2 = document.createElement('button');
+            button2.className = 'gameLauncherButton';
+            button2.textContent = 'Cancel';
+            button2.addEventListener('click', function() {
+                popUpDiv.classList.add('fadeOut-fast');
+                bg.classList.add('fadeOut-fast');
+
+                setTimeout(() => {
+                    popUpDiv.remove();
+                    bg.remove();
+                    document.body.style.overflow = 'visible';
+                }, 250)
             });
 
             buttonsDiv.appendChild(button1);
+            buttonsDiv.appendChild(button2);
             popUpDiv.appendChild(imgElement);
             popUpDiv.appendChild(buttonsDiv);
             document.body.appendChild(popUpDiv);
+            document.body.appendChild(bg);
+        }
+        function playYoutube(url, img) {
+            document.body.style.overflow = 'hidden';
+
+            const popUpDiv = document.createElement('div');
+            popUpDiv.className = 'popUpA';
+
+            const imgElement = document.createElement('img');
+            imgElement.className = 'gameLauncherImage';
+            imgElement.src = img;
+
+            const bg = document.createElement("div");
+            bg.className = 'launcher-fsEffect';
+
+            const buttonsDiv = document.createElement('div');
+            buttonsDiv.className = 'gameLauncherButtons';
+
+            const button1 = document.createElement('button');
+            button1.className = 'gameLauncherButton';
+            button1.textContent = 'Play';
+            button1.addEventListener('click', function() {
+                playMedia(url)
+                popUpDiv.classList.add('fadeOut-fast');
+                bg.classList.add('fadeOut-fast');
+
+                setTimeout(() => {
+                    popUpDiv.remove();
+                    bg.remove();
+                    document.body.style.overflow = 'visible';
+                }, 250)
+            });
+
+            const button2 = document.createElement('button');
+            button2.className = 'gameLauncherButton';
+            button2.textContent = 'Cancel';
+            button2.addEventListener('click', function() {
+                popUpDiv.classList.add('fadeOut-fast');
+                bg.classList.add('fadeOut-fast');
+
+                setTimeout(() => {
+                    popUpDiv.remove();
+                    bg.remove();
+                    document.body.style.overflow = 'visible';
+                }, 250)
+            });
+
+            buttonsDiv.appendChild(button1);
+            buttonsDiv.appendChild(button2);
+            popUpDiv.appendChild(imgElement);
+            popUpDiv.appendChild(buttonsDiv);
+            document.body.appendChild(popUpDiv);
+            document.body.appendChild(bg);
         }
 
         function checkEnter(e) {
@@ -1274,7 +1903,7 @@
         
         function loadCustomMedia() {
             var customEmbed = document.getElementById('customEmbed').value;
-            playMedia(customEmbed);
+            createInstance(customEmbed, false, cts);
         }
         function runJSCommand() {
             var com = document.getElementById('customCom').value;
@@ -1283,41 +1912,41 @@
 
         function updateMaxResults() {
             if (document.getElementById('maxResultsSetting').value > 40 || document.getElementById('maxResultsSetting').value < 4) {
-                alert("Could Not Update: Value must be between 4 and 40!");
+                notify("Could Not Update: Value must be between 4 and 40!");
             } else {
                 maxSearchResults = document.getElementById('maxResultsSetting').value;
-                alert("Setting Updated Successfully!");
+                notify("Setting Updated Successfully!");
             }
         }
         function updateSearchSort() {
             searchSort = document.getElementById('resultSort').options[document.getElementById('resultSort').selectedIndex].value;
-            alert("Setting Updated Successfully!");
+            notify("Setting Updated Successfully!");
         }
         function updateSyndicate() {
             syndicate = document.getElementById('synOption').options[document.getElementById('synOption').selectedIndex].value;
-            alert("Setting Updated Successfully!");
+            notify("Setting Updated Successfully!");
         }
         function updateSafeSearch() {
             if (document.getElementById('ssOption').options[document.getElementById('ssOption').selectedIndex].value == "none") {
-                alert("Nuh Uh");
+                notify("Nuh Uh");
             } else{
                 ssVal = document.getElementById('ssOption').options[document.getElementById('ssOption').selectedIndex].value;
-                alert("Setting Updated Successfully!");
+                notify("Setting Updated Successfully!");
             }
         }
         function updateLoadingPriority() {
             document.getElementById('videoPlayer').loading = document.getElementById('loadOption').options[document.getElementById('loadOption').selectedIndex].value;
-            alert("Setting Updated Successfully!");
+            notify("Setting Updated Successfully!");
         }
         function updatePoster() {
             if (document.getElementById('posterSetting').value == '') {
                 mainStyle.style.setProperty('--posterImg', 'none');
                 window.scrollTo({top: 0, behavior: 'smooth'});
-                alert("Setting Updated Successfully!");
+                notify("Setting Updated Successfully!");
             } else {
                 mainStyle.style.setProperty('--posterImg', `url("${document.getElementById('posterSetting').value}")`);
                 window.scrollTo({top: 0, behavior: 'instant'});
-                alert("Setting Updated Successfully!");
+                notify("Setting Updated Successfully!");
             }
         }
         function updateArchivedGames() {
@@ -1327,11 +1956,22 @@
             for (var i = 0; i < archivedElements.length; i++) {
                 archivedElements[i].style.display = displayValue;
             }
-            alert("Setting Updated Successfully!");
+            notify("Setting Updated Successfully!");
         }
         function updatePosterBlur() {
             mainStyle.style.setProperty("--blurPoster", document.getElementById('blurOption').options[document.getElementById('blurOption').selectedIndex].value);
-            alert("Setting Updated Successfully!");
+            notify("Setting Updated Successfully!");
+        }
+        function updateCustomScroll() {
+            cts = document.getElementById('customScrollOption').options[document.getElementById('customScrollOption').selectedIndex].value;
+            notify("Setting Updated Successfully!");
+        }
+        function updateWatermark() {
+            watermark = document.getElementById('watermarkOption').options[document.getElementById('watermarkOption').selectedIndex].value;
+            if (getSelectedInstance() == -1) {
+                mainStyle.style.setProperty('--watermarkDisplay', watermark);
+            }
+            notify("Setting Updated Successfully!");
         }
 
         function updateTheme() {
@@ -1479,6 +2119,70 @@
                     "--colorBtn": "#666666",
                     "--colorBtnHover": "#222222",
                     "--colorTab": "#343434"
+                },
+                "pacific": {
+                    "--colorBody": "#001c40",
+                    "--colorPoster": "#00346e",
+                    "--colorPlayer": "#00124c",
+                    "--colorContainer": "#001733",
+                    "--colorInput": "#00346e",
+                    "--colorDivider": "#00142e",
+                    "--colorModule": "#002451",
+
+                    "--colorText": "#ffffff",
+                    "--colorBtnText": "#ffffff",
+                    "--colorSubText": "#aaaaaa",
+                    "--colorBtn": "#0e639c",
+                    "--colorBtnHover": "#0c417a",
+                    "--colorTab": "#002451"
+                },
+                "toxic": {
+                    "--colorBody": "#004019",
+                    "--colorPoster": "#006e27",
+                    "--colorPlayer": "#004c2d",
+                    "--colorContainer": "#003313",
+                    "--colorInput": "#006e27",
+                    "--colorDivider": "#002e12",
+                    "--colorModule": "#00511f",
+
+                    "--colorText": "#ffffff",
+                    "--colorBtnText": "#ffffff",
+                    "--colorSubText": "#aaaaaa",
+                    "--colorBtn": "#0e9c2f",
+                    "--colorBtnHover": "#0c7a32",
+                    "--colorTab": "#00511f"
+                },
+                "laser": {
+                    "--colorBody": "#400000",
+                    "--colorPoster": "#6e0004",
+                    "--colorPlayer": "#4c0f00",
+                    "--colorContainer": "#330000",
+                    "--colorInput": "#6e0004",
+                    "--colorDivider": "#2e0000",
+                    "--colorModule": "#510000",
+
+                    "--colorText": "#ffffff",
+                    "--colorBtnText": "#ffffff",
+                    "--colorSubText": "#aaaaaa",
+                    "--colorBtn": "#9c0e25",
+                    "--colorBtnHover": "#7a0c11",
+                    "--colorTab": "#510000"
+                },
+                "glimmer": {
+                    "--colorBody": "#403200",
+                    "--colorPoster": "#6e5200",
+                    "--colorPlayer": "#4c4b00",
+                    "--colorContainer": "#332700",
+                    "--colorInput": "#6e5200",
+                    "--colorDivider": "#2e2400",
+                    "--colorModule": "#513f00",
+
+                    "--colorText": "#ffffff",
+                    "--colorBtnText": "#ffffff",
+                    "--colorSubText": "#aaaaaa",
+                    "--colorBtn": "#9c670e",
+                    "--colorBtnHover": "#7a5d0c",
+                    "--colorTab": "#513f00"
                 }
             }
 
@@ -1522,9 +2226,10 @@
                     mainStyle.style.setProperty(key, themes[selTheme][key]);
                 }
             }
+            notify("Setting Updated Successfully!");
         }
 
-        function createInstance(src, dim) {
+        function createInstance(src, dim, scrolling) {
             const instId = "inst" + instances.length;
             const playerList = document.getElementById('playerDiv');
             const tabSelector = document.getElementById('instTab');
@@ -1542,7 +2247,7 @@
             newInst.src = src;
             newInst.id = instId;
             newInst.style.display = 'none';
-            newInst.scrolling = 'no';
+            newInst.scrolling = scrolling;
 
             if (dim != false) {
                 newInst.style.height = dim[1];
@@ -1568,6 +2273,7 @@
 
         function changeInstance(sel) {
             const allInst = Array.from(document.getElementsByClassName('playerInstance'));
+            mainStyle.style.setProperty('--watermarkDisplay', 'none');
             
             allInst.forEach(element => {
                 element.style.display = 'none';
@@ -1575,6 +2281,8 @@
 
             if (sel != -1) {
                 document.getElementById(instances[sel]['id']).style.display = 'flex';
+            } else {
+                mainStyle.style.setProperty('--watermarkDisplay', watermark);
             }
         }
 
@@ -1700,11 +2408,11 @@
         }
 
         function playMedia(embedUrl) {
-            createInstance(embedUrl, false);
+            createInstance(embedUrl, false, 'no');
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
         function playMediaMinimized(embedUrl, dim) {
-            createInstance(embedUrl, dim);
+            createInstance(embedUrl, dim, 'no');
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
         function unloadPlayer() {
@@ -1817,7 +2525,7 @@
                             img.src = thumbnail;
                             img.alt = title;
                             img.addEventListener('click', function() {
-                                playMedia('https://www.youtube-nocookie.com/embed/' + videoId);
+                                playYoutube('https://www.youtube-nocookie.com/embed/' + videoId, thumbnail);
                             });
 
                             var titleDiv = document.createElement('div');
